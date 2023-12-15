@@ -37,6 +37,10 @@ namespace Battleboats
          paragraph.WriteLine("┏━━━┓");
          paragraph.WriteLine($"┃ {"O".Colour(Colour.Yellow)} ┃  Miss");
          paragraph.WriteLine("┗━━━┛");
+         // Targeting 
+         paragraph.WriteLine("┏━━━┓");
+         paragraph.WriteLine($"┃ {"X".Colour(Colour.Magenta)} ┃  Targeting");
+         paragraph.WriteLine("┗━━━┛");
          // Empty 
          paragraph.WriteLine("┏━━━┓");
          paragraph.WriteLine("┃   ┃  Empty");
@@ -72,6 +76,7 @@ namespace Battleboats
                   Tile.Ship => "S".Colour(Colour.Green),
                   Tile.Hit => "X".Colour(Colour.Red),
                   Tile.Miss => "O".Colour(Colour.Yellow),
+                  Tile.Targeting => "X".Colour(Colour.Magenta)
                }} ");
             }
             paragraph.Write("┃\n");

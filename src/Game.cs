@@ -30,10 +30,33 @@ namespace Battleboats
       public void Cycle()
       {
          // The players who's turn it is
-         PlayerModel player = this.players[turn % 2];
+         PlayerModel attacker = this.players[turn % 2];
+         PlayerModel defender = this.players[(turn + 1) % 2];
+
+         Coords coords = attacker.Attack();
+
+         switch (defender.FleetGrid[coords.y, coords.x])
+         {
+            case Tile.Empty:
+               attacker.AttackGrid[coords.y, coords.x] = Tile.Miss;
+               defender.FleetGrid[coords.y, coords.x] = Tile.Miss;
+               break;
+            case Tile.Ship:
+               // Allow a second turn after a hit
+               this.turn--;
+               attacker.AttackGrid[coords.y, coords.x] = Tile.Hit;
+               defender.FleetGrid[coords.y, coords.x] = Tile.Hit;
+               break;
+         }
+
 
          // Incramenting turn
-         turn++;
+         this.turn++;
+      }
+
+      public void Start()
+      {
+         while (true) this.Cycle();
       }
    }
 }

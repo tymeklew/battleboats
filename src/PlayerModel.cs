@@ -5,6 +5,7 @@ namespace Battleboats
       Empty,
       Ship,
       Hit,
+      Targeting,
       Sunk,
       Miss
    }
@@ -33,6 +34,8 @@ namespace Battleboats
 
       // Function to place ships onto the grid
       public abstract void PlaceBoats();
+      // Function to where they want to attack 
+      public abstract Coords Attack();
 
       protected void DrawShip(Coords coords, int length, Orientation orientation, Tile tile)
       {
@@ -41,6 +44,11 @@ namespace Battleboats
             if (orientation == Orientation.Horizontal) { this.FleetGrid[coords.y, coords.x + i] = tile; }
             else { this.FleetGrid[coords.y + i, coords.x] = tile; }
          }
+      }
+
+      public bool HasLost()
+      {
+         return false;
       }
 
       protected bool IsShipValid(Coords coords, int length, Orientation orientation)
@@ -57,7 +65,7 @@ namespace Battleboats
          return true;
       }
 
-      private bool IsInBounds(Coords coords) => coords.x >= 0 && coords.x < this.config.GridWidth && coords.y >= 0 && coords.y < this.config.GridHeight;
+      protected bool IsInBounds(Coords coords) => coords.x >= 0 && coords.x < this.config.GridWidth && coords.y >= 0 && coords.y < this.config.GridHeight;
    }
 
 }
