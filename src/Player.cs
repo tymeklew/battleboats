@@ -14,22 +14,58 @@ namespace Battleboats
                // Something
                bool finished = false;
                Coords coords = new Coords(0, 0);
+               Orientation orientation = Orientation.Horizontal;
 
                do
                {
                   // Indent 
                   Console.Clear();
-                  Ui.Title().Draw(new Coords(Console.BufferWidth / 2 - 8, 0));
-                  Ui.Key().Draw(new Coords(48, 10));
+                  Ui.Title().Draw(new Coords(Console.BufferWidth / 2 - 7, 0));
+                  Ui.Controls().Draw(new Coords(49, 6));
+                  Ui.Key().Draw(new Coords(49, 12));
 
-                  Paragraph para = new Paragraph();
-                  para.WriteLine($"Placing {boat.name}");
-                  para.Draw(new Coords(0, 3));
+                  Paragraph paragraph = new Paragraph();
+                  paragraph.WriteLine($"Placing {boat.name}");
+                  paragraph.Draw(new Coords(1, 3));
 
-                  Ui.Grid(this.FleetGrid).Draw(new Coords(0, 4));
-                  Console.ReadKey(true);
+                  this.DrawShip(coords, boat.length, orientation, Tile.Ship);
+                  Ui.Grid(this.FleetGrid).Draw(new Coords(1, 4));
+                  this.DrawShip(coords, boat.length, orientation, Tile.Empty);
+
+                  switch (Console.ReadKey(true).Key)
+                  {
+                     // Up
+                     case ConsoleKey.W:
+                     case ConsoleKey.UpArrow:
+                        if (this.IsShipValid(new Coords(coords.x, coords.y - 1), boat.length, orientation)) coords.y--;
+                        break;
+                     // Left
+                     case ConsoleKey.A:
+                     case ConsoleKey.LeftArrow:
+                        if (this.IsShipValid(new Coords(coords.x - 1, coords.y), boat.length, orientation)) coords.x--;
+                        break;
+                     // Down
+                     case ConsoleKey.S:
+                     case ConsoleKey.DownArrow:
+                        if (this.IsShipValid(new Coords(coords.x, coords.y + 1), boat.length, orientation)) coords.y++;
+                        break;
+                     // Right
+                     case ConsoleKey.D:
+                     case ConsoleKey.RightArrow:
+                        if (this.IsShipValid(new Coords(coords.x + 1, coords.y), boat.length, orientation)) coords.x++;
+                        break;
+                     case ConsoleKey.R:
+                        var temp = (Orientation)(((int)orientation + 1) % 2);
+                        if (this.IsShipValid(coords, boat.length, temp)) orientation = temp;
+                        break;
+                     case ConsoleKey.Enter:
+                        finished = true;
+                        break;
+                  };
 
                } while (!finished);
+
+               this.DrawShip(coords, boat.length, orientation, Tile.Ship);
             }
 
          }

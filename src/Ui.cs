@@ -4,63 +4,80 @@ namespace Battleboats
    {
       public static Paragraph Title()
       {
-         Paragraph para = new Paragraph();
-         para.WriteLine("┏━━━━━━━━━━━━━━┓");
-         para.WriteLine("┃  Battleboats ┃");
-         para.WriteLine("┗━━━━━━━━━━━━━━┛");
-         return para;
+         Paragraph paragraph = new Paragraph();
+         paragraph.WriteLine("┏━━━━━━━━━━━━━━┓");
+         paragraph.WriteLine("┃  Battleboats ┃");
+         paragraph.WriteLine("┗━━━━━━━━━━━━━━┛");
+         return paragraph;
+      }
+
+      public static Paragraph Controls()
+      {
+         Paragraph paragraph = new Paragraph();
+         paragraph.WriteLine("Controls :");
+         paragraph.WriteLine("Use [WASD] OR Arrow keys to move ship");
+         paragraph.WriteLine("Press [Enter] to confirm");
+         paragraph.WriteLine("Press [R] to rotate");
+         paragraph.WriteLine("Press [Space] to rotate");
+         return paragraph;
       }
 
       public static Paragraph Key()
       {
-         Paragraph para = new Paragraph();
+         Paragraph paragraph = new Paragraph();
          // Ship
-         para.WriteLine("┏━━━┓");
-         para.WriteLine($"┃ {"S".Colour(Colour.Cyan)} ┃  Ship");
-         para.WriteLine("┗━━━┛");
+         paragraph.WriteLine("┏━━━┓");
+         paragraph.WriteLine($"┃ {"S".Colour(Colour.Green)} ┃  Ship");
+         paragraph.WriteLine("┗━━━┛");
          // Hit 
-         para.WriteLine("┏━━━┓");
-         para.WriteLine($"┃ {"X".Colour(Colour.Red)} ┃  Hit");
-         para.WriteLine("┗━━━┛");
+         paragraph.WriteLine("┏━━━┓");
+         paragraph.WriteLine($"┃ {"X".Colour(Colour.Red)} ┃  Hit");
+         paragraph.WriteLine("┗━━━┛");
          // Miss 
-         para.WriteLine("┏━━━┓");
-         para.WriteLine($"┃ {"O".Colour(Colour.Yellow)} ┃  Miss");
-         para.WriteLine("┗━━━┛");
+         paragraph.WriteLine("┏━━━┓");
+         paragraph.WriteLine($"┃ {"O".Colour(Colour.Yellow)} ┃  Miss");
+         paragraph.WriteLine("┗━━━┛");
          // Empty 
-         para.WriteLine("┏━━━┓");
-         para.WriteLine("┃   ┃  Empty");
-         para.WriteLine("┗━━━┛");
-         return para;
+         paragraph.WriteLine("┏━━━┓");
+         paragraph.WriteLine("┃   ┃  Empty");
+         paragraph.WriteLine("┗━━━┛");
+         return paragraph;
       }
 
       // Function to nicley display the grid
       public static Paragraph Grid(Tile[,] grid)
       {
-         Paragraph para = new Paragraph();
+         Paragraph paragraph = new Paragraph();
 
-         para.WriteLine("┏" + string.Join("", Enumerable.Repeat("━━━┳", grid.GetLength(0))) + "━━━┓");
+         paragraph.WriteLine("┏" + string.Join("", Enumerable.Repeat("━━━┳", grid.GetLength(0))) + "━━━┓");
 
          for (int i = 0; i < grid.GetLength(0) + 1; i++)
          {
-            para.Write($"┃ {" ABCDEFGHIJKLMNOPQRSTUVWXYZ"[i]} ");
+            paragraph.Write($"┃ {" ABCDEFGHIJKLMNOPQRSTUVWXYZ"[i]} ");
          }
-         para.WriteLine("┃");
+         paragraph.WriteLine("┃");
 
 
          for (int i = 0; i < grid.GetLength(0); i++)
          {
-            para.Write("┣━━━" + string.Join("", Enumerable.Repeat("╋━━━", grid.GetLength(0))));
-            para.WriteLine("┫");
-            para.Write($"┃ {grid.GetLength(0) - i - 1} ");
+            paragraph.Write("┣━━━" + string.Join("", Enumerable.Repeat("╋━━━", grid.GetLength(0))));
+            paragraph.WriteLine("┫");
+            paragraph.Write($"┃ {grid.GetLength(0) - i - 1} ");
 
-            for (int j = 0; j < grid.GetLength(1) + 1; j++)
+            for (int j = 0; j < grid.GetLength(1); j++)
             {
-               para.Write("┃   ");
+               paragraph.Write($"┃ {grid[i, j] switch
+               {
+                  Tile.Empty => " ",
+                  Tile.Ship => "S".Colour(Colour.Green),
+                  Tile.Hit => "X".Colour(Colour.Red),
+                  Tile.Miss => "O".Colour(Colour.Yellow),
+               }} ");
             }
-            para.Write("\n");
+            paragraph.Write("┃\n");
          }
-         para.WriteLine("┗" + string.Join("", Enumerable.Repeat("━━━┻", grid.GetLength(0))) + "━━━┛");
-         return para;
+         paragraph.WriteLine("┗" + string.Join("", Enumerable.Repeat("━━━┻", grid.GetLength(0))) + "━━━┛");
+         return paragraph;
       }
 
    }
