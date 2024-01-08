@@ -24,7 +24,7 @@ namespace battleboats
 					  Console.WriteLine($"Placing ship of length {b.Item1}");
 					  Console.Write("Input your coordinates in the format [column][row] E.G A5 : ");
 					  
-					  try{ boat.coordinate = ParseCoordinate(Console.ReadLine()); }
+					  try{ boat.coordinate = ParseCoordinate(Console.ReadLine()!); }
 					  catch { Console.WriteLine("Failed to parse coordinates".Colour(Colour.Red)); }
 
 
@@ -43,7 +43,7 @@ namespace battleboats
 
 	  public override Coordinate Target()
 	  {
-		  var coords = new Coordinate();
+		  Coordinate coords;
 		  do
 		  {
 			  Console.Clear();
@@ -51,7 +51,7 @@ namespace battleboats
 			  Console.WriteLine();
 			  Ui.Grid(this.Fleet());
 			  Console.Write("Input your coordinates in the format A2 : ");
-			  coords = ParseCoordinate(Console.ReadLine());
+			  coords = ParseCoordinate(Console.ReadLine()!);
 		  } while (!coords.InBounds());
 		  
 

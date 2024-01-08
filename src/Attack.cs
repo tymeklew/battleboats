@@ -2,13 +2,13 @@ namespace battleboats
 {
    public class Attack
    {
-	  public Guid PlayerId;
+	  public Guid playerId;
 	  public Coordinate coordinate;
-	  public bool hit;
+	  public readonly bool hit;
 
 	  public Attack(Guid playerId, Coordinate coordinate, bool hit = false)
 	  {
-		 this.PlayerId = playerId;
+		 this.playerId = playerId;
 		 this.coordinate = coordinate;
 		 this.hit = hit;
 	  }

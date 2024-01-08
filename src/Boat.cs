@@ -1,5 +1,7 @@
 namespace battleboats
 {
+   // Orientation enum the int values are used to calculate the stride of the boat
+   // so how much if the 2d array was flattened would the increase by
    public enum Orientation { Horizontal = 1, Vertical = Constants.GridWidth }
 
    public class Boat
@@ -12,7 +14,7 @@ namespace battleboats
 	  public int hits = 0;
 
 
-	  public Boat(Coordinate coordinate, int length ,Orientation orientation = Orientation.Horizontal)
+	  public Boat(Coordinate coordinate, int length, Orientation orientation = Orientation.Horizontal)
 	  {
 		 this.coordinate = coordinate;
 		 this.orientation = orientation;
@@ -22,20 +24,20 @@ namespace battleboats
 	  // Detects wether this specific boat has been hit given the coordinates
 	  public bool IsHit(Coordinate coords)
 	  {
-		  var stride = (int)this.orientation;
-		  var boatIndex = this.coordinate.GetIndex();
-		  var bombIndex = coords.GetIndex();
+		 var stride = (int)this.orientation;
+		 var boatIndex = this.coordinate.GetIndex();
+		 var bombIndex = coords.GetIndex();
 
-		  for (int i = 0; i < this.length; i++)
-			  if (bombIndex == boatIndex + stride * i)
-				  return true;
-		  
-		  return false;
-   }
+		 for (int i = 0; i < this.length; i++)
+			if (bombIndex == boatIndex + stride * i)
+			   return true;
+
+		 return false;
+	  }
 
 	  public bool ConflictsWith(Boat other)
 	  {
-		var coords = this.coordinate;
+		 var coords = this.coordinate;
 		 for (int i = 0; i < this.length; i++)
 		 {
 			var index = this.coordinate.GetIndex() + i * (int)(this.orientation);
@@ -50,16 +52,17 @@ namespace battleboats
 
 	  public bool IsInBounds()
 	  {
-		  var coords = this.coordinate;
-		  
-		  if (this.coordinate.x + this.length > Constants.GridWidth) return false;
-		  for (int i = 0; i < this.length; i++)
-		  {
-			  var index = coords.GetIndex() + i * (int)this.orientation;
-			  if (index is > Constants.GridHeight * Constants.GridWidth or < 0) return false;
-		  }
+		 var coords = this.coordinate;
 
-		  return true;
+		 if (this.coordinate.x + this.length > Constants.GridWidth) return false;
+
+		 for (int i = 0; i < this.length; i++)
+		 {
+			var index = coords.GetIndex() + i * (int)this.orientation;
+			if (index is > Constants.GridHeight * Constants.GridWidth or < 0) return false;
+		 }
+
+		 return true;
 	  }
    }
 }

@@ -22,6 +22,8 @@ namespace battleboats
 
     5. Winning the Game: The first player to sink all of their opponent's ships wins the game.
 
+	 Saves happen automatically after each turn. To load the save, select the Load option in the menu.
+
 Remember, the key to winning Battleship is not just luck, but also strategy. Try to remember where you've seen hits before and avoid those locations in future shots. Good luck!
 ";
    }

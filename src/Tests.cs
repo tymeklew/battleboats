@@ -10,7 +10,7 @@ namespace battleboats
 	  }
 
 	  // Tests for the Boat.ConflictsWith method
-	  public static void BoatConflictTest()
+	  private static void BoatConflictTest()
 	  {
 		 Boat boat1 = new Boat(new Coordinate(0, 0), 4 ,Orientation.Horizontal );
 		 Boat boat2 = new Boat(new Coordinate(0, 0), 4,Orientation.Horizontal) ;

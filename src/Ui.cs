@@ -1,20 +1,21 @@
 namespace battleboats
 {
-	public enum Colour
-	{
-		Black = 30,
-		Red = 31,
-		Green = 32,
-		Yellow = 33,
-		Blue = 34,
-		Magenta = 35,
-		Cyan = 36,
-		White = 37
-	}
-	public static class StringExtension
-	{
-		public static string Colour(this string str, Colour colour) => $"\x1b[{(int)colour}m{str}\x1b[0m";
-	}
+   public enum Colour
+   {
+	  Black = 30,
+	  Red = 31,
+	  Green = 32,
+	  Yellow = 33,
+	  Blue = 34,
+	  Magenta = 35,
+	  Cyan = 36,
+	  White = 37
+   }
+   public static class StringExtension
+   {
+	  public static string Colour(this string str, Colour colour) => $"\x1b[{(int)colour}m{str}\x1b[0m";
+   }
+
    public static class Ui
    {
 	  public static void Grid(Tile[,] grid)
@@ -44,6 +45,15 @@ namespace battleboats
 			Console.WriteLine();
 		 }
 
+
+	  }
+	  public static void Menu()
+	  {
+		 Console.WriteLine("Welcome to Battleboats");
+		 Console.WriteLine("1. Play");
+		 Console.WriteLine("2. Load");
+		 Console.WriteLine("3. Instructions");
+		 Console.WriteLine("4. Exit");
 	  }
 
    }
